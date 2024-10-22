@@ -1,9 +1,7 @@
-import { HttpModule } from '@nestjs/axios';
+// src/core/core.module.ts
 import { Module } from '@nestjs/common';
 
 @Module({
-  imports: [HttpModule],
-  providers: [],
-  exports: [],
+  imports:[],
 })
 export class CoreModule {}

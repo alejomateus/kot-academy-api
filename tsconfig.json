@@ -33,6 +33,9 @@
       "@utils/*": [
         "src/utils/*"
       ],
+      "@core/*": [
+        "src/modules/core/*"
+      ],
     },
   },
 }

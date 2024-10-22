@@ -1,3 +1,4 @@
+import { CoreModule } from '@core/core.module';
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
@@ -15,6 +16,7 @@ import { AppService } from './app.service';
       googleApplicationCredential: "./firebase.json",
       storageBucket: 'gs://kot-academy.appspot.com'
     }),
+    CoreModule
   ],
   controllers: [AppController],
   providers: [AppService],

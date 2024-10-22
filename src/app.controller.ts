@@ -1,8 +1,17 @@
-import { Body, Controller, Get, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FileTypes } from '@core/decorators/file.decorators';
+import {
+  Controller,
+  Get,
+  Post,
+  UploadedFile,
+  UsePipes,
+  ValidationPipe
+} from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
+@UsePipes(new ValidationPipe({ transform: true }))
+
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
@@ -11,9 +20,12 @@ export class AppController {
     return await this.appService.getHello();
   }
   @Post('upload')
-  @UseInterceptors(FileInterceptor('file'))
-  async create(@Body('name') name: string, @Body('email') email: string, @UploadedFile() file: Express.Multer.File) {
+  @FileTypes(['image/jpeg', 'image/png']) // Puedes agregar más tipos aquí
+  async create(
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    console.log(file);
+    
     return this.appService.uploadFile(file);
   }
-
 }
