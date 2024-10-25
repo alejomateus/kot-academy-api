@@ -1,8 +1,8 @@
+import { PaginationDTO } from '@dto/pagination.dto';
 import { Injectable } from '@nestjs/common';
 import { ErrorManager } from '@utils/error.manager';
 import * as bcrypt from 'bcrypt';
 import { FirebaseAdmin, InjectFirebaseAdmin } from 'nestjs-firebase';
-import { PaginationDTO } from '../../../dto/pagination.dto';
 import { UserDTO } from '../dto/user.dto';
 import { IUser } from '../models/user.interface';
 
