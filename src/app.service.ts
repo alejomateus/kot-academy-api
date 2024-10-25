@@ -15,7 +15,6 @@ export class AppService {
   }
   async uploadFile(file: Express.Multer.File) {
     const fileName = `${uuidv4()}${file.originalname}`;
-
     const storage = this.firebase.storage;
     const a = await storage.bucket().file(fileName).save(file.buffer, {
       public: true,
