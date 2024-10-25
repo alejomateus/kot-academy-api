@@ -24,6 +24,9 @@
       "@models/*": [
         "src/models/*"
       ],
+      "@types-enum/*": [
+        "src/types/*"
+      ],
       "@constants/*": [
         "src/constants/*"
       ],
@@ -35,6 +38,12 @@
       ],
       "@core/*": [
         "src/modules/core/*"
+      ],
+      "@users/*": [
+        "src/modules/users/*"
+      ],
+      "@authentication/*": [
+        "src/modules/authentication/*"
       ],
     },
   },
