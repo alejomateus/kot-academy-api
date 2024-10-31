@@ -1,4 +1,5 @@
 import { RoleEnum } from "@types-enum/role.enum";
+import { IUser } from "@users/models/user.interface";
 
 export interface IAuthentication {
   email: string;
@@ -7,7 +8,8 @@ export interface IAuthentication {
 
 export interface IAuthResponse {
   token: string;
-  user: any;
+  refreshToken?: string;
+  user: IUser;
 }
 
 export interface IAuthTokenDecoded {

@@ -1,14 +1,13 @@
 import {
-  ForbiddenException,
   Injectable,
-  NestMiddleware,
-  UnauthorizedException,
+  NestMiddleware
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { IUser } from '@users/models/user.interface';
 import { UsersService } from '@users/services/users.service'; // Ruta correcta
 import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
+import { ErrorManager } from '../../../utils/error.manager';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
@@ -22,29 +21,29 @@ export class AuthMiddleware implements NestMiddleware {
       const token = req.headers['authorization']?.split(' ')[1];
 
       if (!token) {
-        throw new UnauthorizedException('Token is required');
+        throw new ErrorManager({
+          type: 'UNAUTHORIZED',
+          message: 'Token is required',
+        });
       }
 
       const decoded: any = jwt.verify(
         token,
         this.configService.get('JWT_SECRET'),
       );
-      console.log(decoded);
-
       const user: IUser = await this.usersService.findOne(decoded.id);
-      console.log(user);
-
       req.user = user;
 
       if (user.role !== 'admin') {
-        throw new ForbiddenException(
-          'You do not have permission to access this resource',
-        );
+        throw new ErrorManager({
+          type: 'UNAUTHORIZED',
+          message: 'You do not have permission to access this resource',
+        });
       }
 
       next();
     } catch (error) {
-      throw new UnauthorizedException('Invalid token');
+      throw ErrorManager.createSignatureError(error.message);
     }
   }
 }

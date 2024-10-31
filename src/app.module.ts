@@ -1,4 +1,5 @@
 import { AuthenticationModule } from '@authentication/authentication.module';
+import { ApplicationMiddleware } from '@authentication/middlewares/application/application.middleware';
 import { AuthMiddleware } from '@authentication/middlewares/auth.middleware';
 import { CoreModule } from '@core/core.module';
 import { HttpModule } from '@nestjs/axios';
@@ -17,12 +18,12 @@ import { AppService } from './app.service';
       isGlobal: true,
     }),
     FirebaseModule.forRoot({
-      googleApplicationCredential: "./firebase.json",
-      storageBucket: 'gs://kot-academy.appspot.com'
+      googleApplicationCredential: './firebase.json',
+      storageBucket: 'gs://kot-academy.appspot.com',
     }),
     CoreModule,
     AuthenticationModule,
-    UsersModule
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
@@ -30,7 +31,7 @@ import { AppService } from './app.service';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(AuthMiddleware)
+      .apply(AuthMiddleware, ApplicationMiddleware)
       .forRoutes(UsersController);
   }
 }

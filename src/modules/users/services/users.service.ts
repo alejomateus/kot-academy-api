@@ -91,10 +91,7 @@ export class UsersService {
       delete user.password;
       user.createdAt = user.createdAt?.toDate().toLocaleString();
       user.updatedAt = user.updatedAt?.toDate().toLocaleString();
-      const userData: IUser = { id: doc.id, ...user };
-      delete userData.password;
-
-      return userData;
+      return { id: doc.id, ...user };
     } catch (error) {
       throw ErrorManager.createSignatureError(error.message);
     }
@@ -151,20 +148,21 @@ export class UsersService {
       }
 
       const userDoc = snapshot.docs[0];
-      const user = userDoc.data() as IUser;
+      const user: IUser = await this.findOne(userDoc.id);
 
-      const isPasswordValid = await bcrypt.compare(password, user.password);
-      if (!isPasswordValid) {
+      if (! await bcrypt.compare(
+        password,
+        userDoc.data().password,
+      )) {
         throw new ErrorManager({
           type: 'BAD_REQUEST',
           message: 'Credentials are not valid (password)',
         });
       }
-
-      delete user.password;
-
-      return { id: userDoc.id, ...user };
+      return user;
     } catch (error) {
+      console.log(error);
+
       throw ErrorManager.createSignatureError(error.message);
     }
   }
