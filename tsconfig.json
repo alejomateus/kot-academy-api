@@ -42,6 +42,9 @@
       "@users/*": [
         "src/modules/users/*"
       ],
+      "@prospect/*": [
+        "src/modules/prospect/*"
+      ],
       "@authentication/*": [
         "src/modules/authentication/*"
       ],

@@ -25,15 +25,17 @@ export class UsersService {
         });
       }
       const now = new Date();
-      const docRef = await this.userCollection.add({
+      const user = {
         ...data,
-        password: await bcrypt.hash(data.password, 10),
         createdAt: now,
         updatedAt: now,
+      } as IUser;
+      const docRef = await this.userCollection.add({
+        ...user,
+        password: await bcrypt.hash(data.password, 10),
       });
       delete data.password;
-
-      return { id: docRef.id, ...data, createdAt: now, updatedAt: now };
+      return { id: docRef.id, ...user };
     } catch (error) {
       throw ErrorManager.createSignatureError(error.message);
     }
@@ -150,10 +152,7 @@ export class UsersService {
       const userDoc = snapshot.docs[0];
       const user: IUser = await this.findOne(userDoc.id);
 
-      if (! await bcrypt.compare(
-        password,
-        userDoc.data().password,
-      )) {
+      if (!(await bcrypt.compare(password, userDoc.data().password))) {
         throw new ErrorManager({
           type: 'BAD_REQUEST',
           message: 'Credentials are not valid (password)',
@@ -162,7 +161,6 @@ export class UsersService {
       return user;
     } catch (error) {
       console.log(error);
-
       throw ErrorManager.createSignatureError(error.message);
     }
   }

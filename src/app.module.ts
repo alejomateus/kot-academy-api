@@ -10,6 +10,7 @@ import { UsersModule } from '@users/users.module';
 import { FirebaseModule } from 'nestjs-firebase';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ProspectModule } from './modules/prospect/prospect.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { AppService } from './app.service';
     CoreModule,
     AuthenticationModule,
     UsersModule,
+    ProspectModule
   ],
   controllers: [AppController],
   providers: [AppService],
