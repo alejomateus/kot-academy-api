@@ -31,6 +31,7 @@ export class AuthenticationService {
     return {
       token: this.jwtService.sign(user, {
         secret: this.configService.get('JWT_SECRET'),
+        expiresIn: '1h',
       }),
       user,
     };
@@ -39,7 +40,7 @@ export class AuthenticationService {
   private generateRefreshToken(user: IUser): string {
     return this.jwtService.sign(user, {
       secret: this.configService.get('REFRESH_TOKEN_SECRET'),
-      expiresIn: '7d',
+      expiresIn: '1h',
     });
   }
 
