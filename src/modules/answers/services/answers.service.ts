@@ -27,6 +27,8 @@ export class AnswersService {
 
       return { id: docRef.id, ...answer };
     } catch (error) {
+      console.log(error);
+      
       throw ErrorManager.createSignatureError(error.message);
     }
   }
@@ -67,6 +69,8 @@ export class AnswersService {
           : null,
       };
     } catch (error) {
+      console.log(error);
+
       throw ErrorManager.createSignatureError(error.message);
     }
   }
