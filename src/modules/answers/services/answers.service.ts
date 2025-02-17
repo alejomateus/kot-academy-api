@@ -37,7 +37,6 @@ export class AnswersService {
       let query = this.answersCollection
         .orderBy('createdAt')
         .limit(parseInt('' + queryParams.page));
-
       if (queryParams?.lastVisibleId) {
         const lastVisibleDoc = await this.answersCollection
           .doc(queryParams.lastVisibleId)
