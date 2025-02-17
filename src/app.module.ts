@@ -5,12 +5,13 @@ import { CoreModule } from '@core/core.module';
 import { HttpModule } from '@nestjs/axios';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { ProspectModule } from '@prospect/prospect.module';
 import { UsersController } from '@users/controllers/users.controller';
 import { UsersModule } from '@users/users.module';
 import { FirebaseModule } from 'nestjs-firebase';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ProspectModule } from './modules/prospect/prospect.module';
+import { AnswersModule } from './modules/answers/answers.module';
 
 @Module({
   imports: [
@@ -25,7 +26,8 @@ import { ProspectModule } from './modules/prospect/prospect.module';
     CoreModule,
     AuthenticationModule,
     UsersModule,
-    ProspectModule
+    ProspectModule,
+    AnswersModule
   ],
   controllers: [AppController],
   providers: [AppService],
