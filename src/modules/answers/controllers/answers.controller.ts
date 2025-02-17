@@ -1,4 +1,3 @@
-import { PaginationDTO } from '@dto/pagination.dto';
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AnswersService } from '../services/answers.service';
@@ -13,7 +12,7 @@ export class AnswersController {
   }
 
   @Get()
-  findAll(@Query() queryParams: PaginationDTO): Promise<any[]> {
+  findAll(@Query() queryParams: any): Promise<any[]> {
     return this.answersService.findAll(queryParams);
   }
 }

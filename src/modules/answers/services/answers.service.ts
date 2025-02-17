@@ -1,4 +1,3 @@
-import { PaginationDTO } from '@dto/pagination.dto';
 import { Injectable } from '@nestjs/common';
 import { ErrorManager } from '@utils/error.manager';
 import { FirebaseAdmin, InjectFirebaseAdmin } from 'nestjs-firebase';
@@ -32,7 +31,7 @@ export class AnswersService {
     }
   }
 
-  async findAll(queryParams: PaginationDTO): Promise<any> {
+  async findAll(queryParams: any): Promise<any> {
     try {
       let query = this.answersCollection
         .orderBy('createdAt')
