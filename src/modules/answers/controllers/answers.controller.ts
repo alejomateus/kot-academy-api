@@ -6,7 +6,7 @@ import { AnswersService } from '../services/answers.service';
 @ApiTags('Answers')
 export class AnswersController {
   constructor(private readonly answersService: AnswersService) {}
-  @Post('create')
+  @Post()
   create(@Body() body: any): Promise<any> {
     return this.answersService.create(body);
   }
